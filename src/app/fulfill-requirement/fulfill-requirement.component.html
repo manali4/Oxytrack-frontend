@@ -1,0 +1,117 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 mt-3 mt-sm-5 pr-sm-0">
+            <mat-card class="mt-0 mt-lg-3">
+                <mat-card-title class="p-2">
+                    Patient Info
+                </mat-card-title>
+                <mat-card-subtitle class="p-2 py-1">
+                    <div class="d-flex flex-wrap justify-content-start align-items-center">
+                        <div class="mb-2 mb-sm-0">Information about the patient for whom this requirement was posted.
+                        </div>
+                    </div>
+                </mat-card-subtitle>
+                <mat-card-content class="pt-0 p-2">
+                    <div class="fs-medium">
+                        {{requirement?.patient?.patientName}} ({{requirement?.patient?.age}})
+                    </div>
+                    <div class="fs-small d-flex align-items-center">
+                        <a href="tel:{{requirement?.patient?.patientContact}}">
+                            <mat-icon [inline]="true" color="primary">phone</mat-icon>&nbsp;
+                            {{requirement?.patient?.patientContact}}
+                        </a>
+                    </div>
+                    <div class="text-gray pt-2">
+                        {{requirement?.patient?.address}}
+                        &nbsp;&nbsp;·&nbsp;&nbsp;
+                        {{requirement?.patient?.location}}
+                    </div>
+                    <div class="text-gray">
+                        Aadhar: {{requirement?.patient?.aadhar}}
+                    </div>
+                    <hr>
+                    <div class="">
+                        Relative Info -
+                    </div>
+                    <div class="text-gray">
+                        {{requirement?.patient?.relativeName}}
+                    </div>
+                    <div class="text-gray">
+                        <a href="tel:{{requirement?.patient?.alternateContact1}}">
+                            {{requirement?.patient?.alternateContact1}}
+                        </a>
+                        &nbsp;&nbsp;·&nbsp;&nbsp;
+                        <a href="tel:{{requirement?.patient?.alternateContact2}}">
+                            {{requirement?.patient?.alternateContact2}}
+                        </a>
+                    </div>
+                    <hr>
+                    <div class="">
+                        <mat-icon color="warn" [inline]="true">medical_services</mat-icon>&nbsp;
+                        Cylinder required on: {{requirement?.requiredAt | slice:0:10}}
+                    </div>
+                    <div class="">
+                        Requirement: {{requirement?.type | titlecase}}
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-lg-8 mt-3 mt-sm-5 pl-sm-0">
+            <mat-card class="mt-0 mt-lg-3">
+                <mat-card-title class="p-2">
+                    Fulfill Requirement
+                </mat-card-title>
+                <mat-card-subtitle class="p-2 py-1">
+                    <div class="d-flex flex-wrap justify-content-start align-items-center">
+                        <div class="mb-3 mb-sm-0">
+                            Pick a cylinder to issue.
+                        </div>
+                    </div>
+                </mat-card-subtitle>
+                <mat-card-content>
+                    <form (ngSubmit)="onSubmit()" #postRequirementForm="ngForm">
+                        <div class="container-fluid px-2">
+                            <div class="row">
+                                <div class="col-md-12 mb-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Choose a cylinder</mat-label>
+                                        <input type="text" placeholder="Start typing" matInput
+                                            [matAutocomplete]="auto" name="cylinder" [(ngModel)]="cylinder"
+                                            required (input)="onSearchChange($event.target.value)">
+                                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                            <mat-option *ngFor="let cylinder of cylinders" [value]="cylinder">
+                                                {{cylinder.identifier}} · {{cylinder.status | titlecase}} · {{cylinder.currentCapacity}}L/{{cylinder.totalCapacity}}L
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-error *ngIf="postRequirementForm.invalid">{{getErrorMessage('Patient name')}}
+                                        </mat-error>
+                                        <mat-hint>Search by identifier or search "Available" or "Empty" or "Alloted".</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-12 mb-3" *ngIf="error">
+                                    <div class="d-flex">
+                                        <div class="mr-1">
+                                            <mat-error>
+                                                <mat-icon>error</mat-icon>
+                                            </mat-error>
+                                        </div>
+                                        <div class="">
+                                            <mat-error>
+                                                {{error}}
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 my-2">
+                                    <button mat-raised-button class="w-100" color="accent"
+                                        [disabled]="!postRequirementForm.form.valid">Fulfill Requirement</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

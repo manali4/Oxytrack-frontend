@@ -1,0 +1,65 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div class="container-fluid px-0 ">
+    <div class="row mt-0 mt-sm-3">
+        <div class="col-lg-4 offset-lg-4 col-md-8 offset-md-2 col-sm-10 offset-sm-1 mt-5">
+            <mat-card class="mt-0 mt-sm-5 mx-3">
+                <mat-card-title class="p-2">
+                    OxyTrack
+                </mat-card-title>
+                <mat-card-subtitle class="p-2 py-1">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="mb-3 mb-sm-0">Login to your account</div>
+                        <div class=""><button mat-raised-button routerLink="/signup" matTooltip="Sign up for an account" matTooltipPosition="right">Create account</button></div>
+                    </div>
+                </mat-card-subtitle>
+                <mat-card-content>
+                    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+                        <div class="container-fluid px-2">
+                            <div class="row">
+                                <div class="col-md-12 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Username</mat-label>
+                                        <input matInput type="text" placeholder="Enter your username" name="username" [(ngModel)]="user.username" #username="ngModel" required>
+                                        <mat-icon matSuffix>account_circle</mat-icon>
+                                        <mat-error *ngIf="username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Password</mat-label>
+                                        <input matInput type="password" placeholder="Enter your password" name="password" [(ngModel)]="user.password" #password="ngModel" required>
+                                        <mat-icon matSuffix>vpn_key</mat-icon>
+                                        <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="error">
+                                <div class="col-md-12 mb-3">
+                                    <div class="d-flex">
+                                        <div class="mr-1">
+                                            <mat-error>
+                                                <mat-icon>error</mat-icon>
+                                            </mat-error>
+                                        </div>
+                                        <div class="">
+                                            <mat-error>
+                                                {{error}}
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <button mat-raised-button class="w-100" color="primary" [disabled]="!userForm.form.valid">Log In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

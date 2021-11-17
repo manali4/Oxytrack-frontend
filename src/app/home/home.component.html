@@ -1,0 +1,45 @@
+<div class="container mt-3">
+  <div class="row">
+      <div class="col">
+          <div class="mt-3">
+              <mat-card (click)="goto('/add/cylinder')"  class="actionButton">
+                  <div class="d-flex align-items-center">
+                      <mat-icon>add_circle_outline</mat-icon>
+                      <div class="ml-2">Add New Cylinder</div>
+                  </div>
+              </mat-card>
+          </div>
+      </div>
+      <div class="col">
+          <div class="mt-3">
+              <mat-card (click)="goto('add/patient')" class="actionButton">
+                  <div class="d-flex align-items-center">
+                      <mat-icon>create</mat-icon>
+                      <div class="ml-2">Register A Patient</div>
+                  </div>
+              </mat-card>
+          </div>
+      </div>
+      <div class="col">
+          <div class="mt-3">
+              <mat-card (click)="goto('add/requirement')"  class="actionButton">
+                  <div class="d-flex align-items-center">
+                      <mat-icon>search</mat-icon>
+                      <div class="ml-2">Post Requirement</div>
+                  </div>
+              </mat-card>
+          </div>
+      </div>
+      <div class="col" *ngIf="userData?.role === 'ADMIN'">
+        <div class="mt-3">
+            <mat-card (click)="goto('view/requirement')"  class="actionButton">
+                <div class="d-flex align-items-center">
+                    <mat-icon>check</mat-icon>
+                    <div class="ml-2">Fulfill Requirement</div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+  </div>
+  <hr class="mt-4 my-3">
+</div>

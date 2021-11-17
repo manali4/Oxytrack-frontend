@@ -1,0 +1,52 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <!-- <button mat-icon-button (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+</button> -->
+    <h1 routerLink="/" class="example-app-name">
+      <span *ngIf="router.url == '/'; else backButton">
+        OxyTrack
+      </span>
+    </h1>
+
+    <ng-template #backButton>
+      <div class="d-flex justify-content-between align-items-center">
+        <mat-icon>arrow_back</mat-icon>
+        <div class="user-name">Back</div>
+      </div>
+    </ng-template>
+
+
+    <span class="example-spacer"></span>
+    <button *ngIf="router.url == '/' && !loggedIn" mat-flat-button routerLink="/signin">Sign In</button>
+
+    <div class="user-menu px-2" *ngIf="loggedIn" mat-icon-button [matMenuTriggerFor]="menu" aria-label="User Menu">
+      <div class="d-flex justify-content-between align-items-center">
+        <mat-icon>mood</mat-icon>
+        <div class="user-name">{{ userData?.name | titlecase }}</div>
+      </div>
+    </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+                 fixedTopGap="56">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/signin">Sign In</a>
+        <a mat-list-item routerLink="/signup">Create an account</a>
+
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <!-- Inserts the login / signup / etc. components here -->
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

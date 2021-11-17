@@ -1,0 +1,86 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div class="container-fluid px-0 ">
+    <div class="row mt-0 mt-sm-3">
+        <div class="col-lg-4 offset-lg-4 col-md-8 offset-md-2 col-sm-10 offset-sm-1 mt-3 mt-sm-5">
+            <mat-card class="mt-0 mt-sm-5 mx-3">
+                <mat-card-title class="p-2">
+                    Add Cylinder
+                </mat-card-title>
+                <mat-card-subtitle class="p-2 py-1">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="mb-3 mb-sm-0">Registering a new cylinder</div>
+                    </div>
+                </mat-card-subtitle>
+                <mat-card-content>
+                    <form (ngSubmit)="onSubmit()" #addCylinderForm="ngForm">
+                        <div class="container-fluid px-2">
+                            <div class="row">
+                                <div class="col-md-12 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Identifier</mat-label>
+                                        <input matInput type="text" placeholder="Enter identifier of cylinder" name="identifier" [(ngModel)]="cylinder.identifier" #identifier="ngModel" required>
+                                        <mat-error *ngIf="identifier.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Unique ID of the cylinder</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Status</mat-label>
+                                        <mat-select name="status" [(ngModel)]="cylinder.status" #status="ngModel" required>
+                                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                {{food.viewValue}}
+                                              </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="status.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Status of the cylinder</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Current Capacity (L)</mat-label>
+                                        <input matInput type="number" placeholder="Enter your status" name="currentCapacity" [(ngModel)]="cylinder.currentCapacity" #currentCapacity="ngModel" required>
+                                        <mat-error *ngIf="fg_AddCylinder.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Liters currently present</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Total Capacity (L)</mat-label>
+                                        <input matInput type="number" placeholder="Enter your status" name="totalCapacity" [(ngModel)]="cylinder.totalCapacity" #totalCapacity="ngModel" required>
+                                        <mat-error *ngIf="fg_AddCylinder.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Total capacity in liters</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="error">
+                                <div class="col-md-12 mb-3">
+                                    <div class="d-flex">
+                                        <div class="mr-1">
+                                            <mat-error>
+                                                <mat-icon>error</mat-icon>
+                                            </mat-error>
+                                        </div>
+                                        <div class="">
+                                            <mat-error>
+                                                {{error}}
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-2 mb-2">
+                                    <button mat-raised-button class="w-100" color="primary" [disabled]="!addCylinderForm.form.valid">Add Cylinder</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

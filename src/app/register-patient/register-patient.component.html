@@ -1,0 +1,124 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div class="container-fluid px-0 ">
+    <div class="row mt-0 mt-sm-3">
+        <div class="col-lg-6 offset-lg-3 mt-3 mt-sm-3">
+            <mat-card class="mt-0 mt-sm-5 mx-3">
+                <mat-card-title class="p-2">
+                    Register Patient
+                </mat-card-title>
+                <mat-card-subtitle class="p-2 py-1">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="mb-3 mb-sm-0">Registering a new patient</div>
+                    </div>
+                </mat-card-subtitle>
+                <mat-card-content>
+                    <form (ngSubmit)="onSubmit()" #registerPatientForm="ngForm">
+                        <div class="container-fluid px-2">
+                            <div class="row">
+                                <div class="col-md-6 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput type="text" placeholder="Enter name" name="patientName" [(ngModel)]="patient.patientName" #patientName="ngModel" required>
+                                        <mat-error *ngIf="patientName.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Name of the patient</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Contact</mat-label>
+                                        <input matInput type="number" placeholder="Phone number" name="patientContact" [(ngModel)]="patient.patientContact" #patientContact="ngModel" required>
+                                        <mat-error *ngIf="patientContact.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Phone number of patient</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Address</mat-label>
+                                        <input matInput type="text" placeholder="Enter address" name="address" [(ngModel)]="patient.address" #address="ngModel" required>
+                                        <mat-error *ngIf="address.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Address of patient</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-5 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Location</mat-label>
+                                        <input matInput type="text" placeholder="Enter location" name="location" [(ngModel)]="patient.location" #location="ngModel" required>
+                                        <mat-error *ngIf="location.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Phone number of the patient</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Age</mat-label>
+                                        <input matInput type="number" placeholder="Enter age" name="age" [(ngModel)]="patient.age" #age="ngModel" required>
+                                        <mat-error *ngIf="age.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Age of patient</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-8 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Aadhar Number</mat-label>
+                                        <input matInput type="number" placeholder="Enter aadhar number" name="aadhar" [(ngModel)]="patient.aadhar" #aadhar="ngModel" required>
+                                        <mat-error *ngIf="aadhar.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Aadhar number of the patient</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Name of Relative</mat-label>
+                                        <input matInput type="text" placeholder="Enter relative name" name="relativeName" [(ngModel)]="patient.relativeName" #relativeName="ngModel" required>
+                                        <mat-error *ngIf="relativeName.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Name of the relative</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Alternate Contact 1</mat-label>
+                                        <input matInput type="number" placeholder="Enter first alternate contact" name="alternateContact1" [(ngModel)]="patient.alternateContact1" #alternateContact1="ngModel" required>
+                                        <mat-error *ngIf="alternateContact1.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Alternate contact</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4 mb-1">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Alternate Contact 2</mat-label>
+                                        <input matInput type="text" placeholder="Enter second alternate contact" name="alternateContact2" [(ngModel)]="patient.alternateContact2" #alternateContact2="ngModel" required>
+                                        <mat-error *ngIf="alternateContact2.invalid">{{getErrorMessage()}}</mat-error>
+                                        <mat-hint>Another alternate contact</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="error">
+                                <div class="col-md-12 mb-3">
+                                    <div class="d-flex">
+                                        <div class="mr-1">
+                                            <mat-error>
+                                                <mat-icon>error</mat-icon>
+                                            </mat-error>
+                                        </div>
+                                        <div class="">
+                                            <mat-error>
+                                                {{error}}
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-2 mb-2">
+                                    <button mat-raised-button class="w-100" color="primary" [disabled]="!registerPatientForm.form.valid">Register Patient</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
